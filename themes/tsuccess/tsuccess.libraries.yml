@@ -14,15 +14,15 @@ global-styling:
       css/slicknav.css: {}
       css/style.css: {}
 
-jquery-custom:
-  remote: https://github.com/jquery/jquery
-  version: "1.12.4"
-  license:
-    name: MIT
-    url: https://github.com/jquery/jquery/blob/1.12.4/LICENSE.txt
-    gpl-compatible: true
-  js:
-    js/vendor/jquery-1.12.4.min.js: { minified: true }
+# jquery-custom:
+#   remote: https://github.com/jquery/jquery
+#   version: "1.12.4"
+#   license:
+#     name: MIT
+#     url: https://github.com/jquery/jquery/blob/1.12.4/LICENSE.txt
+#     gpl-compatible: true
+#   js:
+#     js/vendor/jquery-1.12.4.min.js: { minified: true }
 
 global-scripts:
   version: 1.x

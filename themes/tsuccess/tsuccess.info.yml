@@ -10,9 +10,9 @@ libraries:
   - tsuccess/global-styling
   - tsuccess/global-scripts
 
-libraries-override:
-  # Replace an entire library.
-  core/jquery: tsuccess/jquery-custom
+# libraries-override:
+#   # Replace an entire library.
+#   core/jquery: tsuccess/jquery-custom
 
 regions:
   header: Header
@@ -34,3 +34,4 @@ regions:
   footer_third: 'Footer third'
   footer_fourth: 'Footer fourth'
   footer_fifth: 'Footer fifth'
+  footer_copyright: 'Footer copyright'

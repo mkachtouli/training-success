@@ -1,0 +1,33 @@
+<?php
+/**
+ * Sanitise input urls.
+ */
+function santise_val_url($url) {
+	if ($url != '') {
+
+		// Sanitise (remove all illegal characters) from url.
+		$url = filter_var($url, FILTER_SANITIZE_URL);
+
+		// Validate url.
+		if (filter_var($url, FILTER_VALIDATE_URL) == TRUE) {
+			$url = $url;
+		} else {
+			$url = '#';
+		}
+		return $url;
+	}
+}
+
+/**
+ * Define variables for theme settings.
+ */
+function tsuccess_preprocess_page(array &$variables) {
+	$config = \Drupal::config('system.site');
+	$variables['site_name'] = $config->get('name');
+	$variables['site_slogan'] = $config->get('slogan');
+
+	$variables['facebook_url'] = santise_val_url(theme_get_setting('facebook_url', 'tsuccess'));
+	$variables['instagram_url'] = santise_val_url(theme_get_setting('instagram_url', 'tsuccess'));
+	$variables['linkedin_url'] = santise_val_url(theme_get_setting('linkedin_url', 'tsuccess'));
+    $variables['whatsapp_url'] = santise_val_url(theme_get_setting('whatsapp_url', 'tsuccess'));
+}

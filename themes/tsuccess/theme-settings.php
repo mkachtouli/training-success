@@ -21,8 +21,53 @@ function tsuccess_form_system_theme_settings_alter(&$form, &$form_state)
         '#group' => 'tsuccess',
     ];
 
+     // Main Tabs -> Info.
+    $form['info'] = [
+        '#type' => 'details',
+        '#title' => t('Contact Information'),
+        '#description' => t('Contact information.'),
+        '#group' => 'tsuccess',
+    ];
+
+    // Settings under Info tab.
+    $form['info']['contact_info'] = [
+        '#type' => 'fieldset',
+        '#title' => t('Contact Information'),
+        '#collapsible' => true,
+        '#collapsed' => false,
+    ];
+
+    // Tel.
+    $form['info']['contact_info']['tel'] = [
+        '#type' => 'details',
+        '#title' => t("Telephone"),
+        '#collapsible' => true,
+        '#collapsed' => false,
+    ];
+
+    $form['info']['contact_info']['tel']['tel_number'] = [
+        '#type' => 'textfield',
+        '#title' => t('Telephone'),
+        '#description' => t("Enter yours Phone number. Leave the field blank to hide this icon."),
+        '#default_value' => theme_get_setting('tel_number', 'tsuccess'),
+    ];
+
+    // Email.
+    $form['info']['contact_info']['email'] = [
+        '#type' => 'details',
+        '#title' => t("Email"),
+        '#collapsible' => true,
+        '#collapsed' => false,
+    ];
+
+    $form['info']['contact_info']['email']['email_addr'] = [
+        '#type' => 'textfield',
+        '#title' => t('Email'),
+        '#description' => t("Enter yours Email. Leave the field blank to hide this icon."),
+        '#default_value' => theme_get_setting('email_addr', 'tsuccess'),
+    ];
+
     // Settings under social tab.
-    // Show or hide all icons.
     $form['social']['social_profile'] = [
         '#type' => 'fieldset',
         '#title' => t('Social Profile'),

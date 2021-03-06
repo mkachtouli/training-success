@@ -30,4 +30,6 @@ function tsuccess_preprocess_page(array &$variables) {
 	$variables['instagram_url'] = santise_val_url(theme_get_setting('instagram_url', 'tsuccess'));
 	$variables['linkedin_url'] = santise_val_url(theme_get_setting('linkedin_url', 'tsuccess'));
     $variables['whatsapp_url'] = santise_val_url(theme_get_setting('whatsapp_url', 'tsuccess'));
+    $variables['tel_number'] = theme_get_setting('tel_number', 'tsuccess');
+    $variables['email_addr'] = theme_get_setting('email_addr', 'tsuccess');
 }

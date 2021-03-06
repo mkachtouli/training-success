@@ -2164,7 +2164,7 @@ h3 {
   outline: none
 }
 
-.footer .footer_top .footer_widget .newsletter_form button {
+.footer .footer_top .footer_widget .newsletter_form button, #mc-embedded-subscribe {
   position: absolute;
   top: 0;
   right: 0;
@@ -2180,11 +2180,20 @@ h3 {
   right: 0;
   font-size: 14px;
   font-weight: 400;
-  font-family: poppins, sans-serif
+  font-family: poppins, sans-serif;
+  width: auto;
+}
+
+#mce-success-response{
+  color: #1bff00;
+}
+
+#mce-error-response{
+  color: #ff0000;
 }
 
 @media(max-width:767px) {
-  .footer .footer_top .footer_widget .newsletter_form button {
+  .footer .footer_top .footer_widget .newsletter_form button, #mc-embedded-subscribe {
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -2271,11 +2280,11 @@ h3 {
 }
 
 .footer .socail_links ul li:nth-child(2) a {
-  background: #1da1f2
+  background: #25D366
 }
 
 .footer .socail_links ul li:nth-child(3) a {
-  background: #dd4b39
+  background: #C13584
 }
 
 .footer .socail_links ul li:nth-child(4) a {

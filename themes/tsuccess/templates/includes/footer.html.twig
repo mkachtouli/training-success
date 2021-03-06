@@ -1,6 +1,5 @@
 
 <footer  class="footer" role="contentinfo">
-
     <div class="footer_top">
         <div class="container">
             <div class="newsLetter_wrap">
@@ -8,18 +7,15 @@
                 <div class="col-md-7">
                 <div class="footer_widget">
                     <h3 class="footer_title">
-                    Stay Updated
+                        {{ 'Stay Updated'|t }}
                     </h3>
-                    <form action="#" class="newsletter_form">
-                    <input type="text" placeholder="Email Address">
-                    <button type="submit">Subscribe Now</button>
-                    </form>
+                    {{ drupal_entity('block_content', 2) }}
                 </div>
                 </div>
                 <div class="col-md-12 col-lg-5">
                 <div class="footer_widget">
                     <h3 class="footer_title">
-                    Stay Updated
+                        {{ 'Stay Updated'|t }}
                     </h3>
                     <div class="socail_links">
                     <ul>

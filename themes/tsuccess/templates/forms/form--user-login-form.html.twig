@@ -1,0 +1,56 @@
+<form class="form-contact contact_form" {{ attributes }}>
+  <div class="row">
+    <div id="error_messages"></div>
+    {{ element.messages }}
+    <div class="col-sm-6">
+      <div class="form-group">
+        {{ element.name }} {# username element #}
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        {{ element.pass }} {# password element #}
+      </div>
+    </div>
+    <div class="login-form__help_actions">
+      <input id="show_password" class="show_password" type="checkbox" />
+      <label class="password-toggle" for="show_password">Show password</label>
+      <a href="/user/password" class="forgot-password">Forgot Password?</a>
+    </div>
+    {{ element.form_build_id }} {# required #}
+    {{ element.form_id }} {# required #}
+
+  </div>
+  <div class="form-group mt-3">
+    {{ element.actions.submit }}
+  </div>
+</form>
+
+
+<!-- 
+<form class="form-contact contact_form" action="https://preview.colorlib.com/theme/wiser/contact_process.php"
+  method="post" id="contactForm" novalidate="novalidate">
+  <div class="row">
+
+
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+      </div>
+    </div>
+
+
+  </div>
+  <div class="form-group mt-3">
+    <button type="submit" class="button button-contactForm boxed-btn">Send</button>
+  </div>
+</form> -->

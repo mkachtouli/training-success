@@ -1140,7 +1140,7 @@ h3 {
   }
 }
 
-.header-area .header-top_area .header_top_wrap .text_wrap a:last-child::before {
+/* .header-area .header-top_area .header_top_wrap .text_wrap a:last-child::before {
   position: absolute;
   left: 0;
   top: 50%;
@@ -1149,7 +1149,7 @@ h3 {
   height: 13px;
   background: #fff;
   content: ''
-}
+} */
 
 .slider_bg_1 {
   background-image: url(../img/banner/banner.png)

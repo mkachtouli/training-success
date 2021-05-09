@@ -249,8 +249,8 @@ h3 {
 }
 
 .section__padding {
-  padding-top: 200px;
-  padding-bottom: 200px
+  padding-top: 100px;
+  padding-bottom: 100px
 }
 
 @media(max-width:767px) {

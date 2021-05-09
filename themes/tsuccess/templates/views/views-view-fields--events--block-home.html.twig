@@ -32,21 +32,18 @@
  */
 #}
 
-<div class="col-md-6">
-  <div class="single__news">
-    <div class="thumb">
-      <a href="{{ fields.view_node.content|trim|render|striptags }}">
-        <img src="{{ fields.field_image.content|trim|render|striptags }}" alt="">
-      </a>
-      <span class="badge bandge_2">{{ fields.field_tags.content|trim|render|striptags }}</span>
-    </div>
-    <div class="news_info">
-      <a href="{{ fields.view_node.content|trim|render|striptags }}">
+<div class="single_event d-flex align-items-center">
+  <div class="date text-center">
+    <span>{{ fields.field_date_event_3.content|trim|render|striptags }}</span>
+    <p>{{ fields.field_date_event_2.content|trim|render|striptags }}</p>
+  </div>
+  <div class="event_info">
+    <a href="{{ fields.view_node.content|trim|render|striptags }}">
         <h4>{{ fields.title.content|trim|render|striptags }}</h4>
-      </a>
-      <p class="d-flex align-items-center"> <span><i class="flaticon-calendar-1"></i>{{ fields.created.content|trim|render|striptags }}</span>
-        <span> <i class="flaticon-comment"></i> {{ fields.comment_count.content|trim|render|striptags }} comments</span>
-      </p>
-    </div>
+    </a>
+    <p>
+      <span> <i class="flaticon-clock"></i>{{ fields.field_date_event_1.content|trim|render|striptags }}</span> <span> <i class="flaticon-calendar"></i>{{ fields.field_date_event.content|trim|render|striptags }}</span>
+      <span> <i class="flaticon-placeholder"></i>{{ fields.field_location_event.content|trim|render|striptags }}</span> 
+    </p>
   </div>
 </div>

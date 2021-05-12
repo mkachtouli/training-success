@@ -32,18 +32,11 @@
  */
 #}
 
-<div class="single_event d-flex align-items-center">
-  <div class="date text-center">
-    <span>{{ fields.field_date_event_3.content|trim|render|striptags }}</span>
-    <p>{{ fields.field_date_event_2.content|trim|render|striptags }}</p>
+<div class="single_wrap m-1">
+  <div class="icon">
+    <img src="{{ fields.field_icon.content|trim|render|striptags }}" alt="">
   </div>
-  <div class="event_info">
-    <a href="{{ fields.view_node.content|trim|render|striptags }}">
-        <h4>{{ fields.title.content|trim|render|striptags }}</h4>
-    </a>
-    <p>
-      <span> <i class="flaticon-clock"></i>{{ fields.field_date_event_1.content|trim|render|striptags }}</span> <span> <i class="flaticon-calendar"></i>{{ fields.field_date_event.content|trim|render|striptags }}</span>
-      <span> <i class="flaticon-placeholder"></i>{{ fields.field_location_event.content|trim|render|striptags }}</span> 
-    </p>
-  </div>
+  <h4>{{ fields.title.content|trim|render|striptags }}</h4>
+  <p>{{ fields.body.content|trim|render|striptags }}</p>
+  <a href="{{ fields.view_node.content|trim|render|striptags }}" class="boxed-btn5">Apply Now</a>
 </div>

@@ -1,0 +1,15 @@
+<?php
+
+
+/**
+ * Implements hook_theme().
+ */
+function tsuccess_master_theme($existing, $type, $theme, $path) {
+    return [
+        'diploma_home' => [
+            'variables' => ['title' => NULL],
+        ],
+    ];
+
+}
+

@@ -1,0 +1,51 @@
+{#
+/**
+ * @file
+ * Profile diploma home block.
+ */
+#}
+
+<div class="popular_program_area section__padding">
+   <div class="container">
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="section_title text-center">
+         <h3>{{ title }}</h3>
+         </div>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-lg-12">
+         <nav class="custom_tabs text-center">
+         <div class="nav" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-bac2-tab" data-toggle="tab" href="#nav-bac2" role="tab" aria-controls="nav-bac2" aria-selected="true">Bac + </a>
+            <a class="nav-item nav-link" id="nav-bac3-tab" data-toggle="tab" href="#nav-bac3" role="tab" aria-controls="nav-bac3" aria-selected="false">Bac + 3</a>
+            <a class="nav-item nav-link" id="nav-bac5-tab" data-toggle="tab" href="#nav-bac5" role="tab" aria-controls="nav-bac5" aria-selected="false">Bac + 5</a>
+         </div>
+         </nav>
+      </div>
+   </div>
+
+   <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-bac2" role="tabpanel" aria-labelledby="nav-bac2-tab">
+            {{ drupal_view('diploma_training', 'block_diploma_bac2')|without('#theme_wrappers') }}
+      </div>
+      <div class="tab-pane fade" id="nav-bac3" role="tabpanel" aria-labelledby="nav-bac3-tab">
+            {{ drupal_view('diploma_training', 'block_diploma_bac3')|without('#theme_wrappers') }}
+      </div>
+      <div class="tab-pane fade" id="nav-bac5" role="tabpanel" aria-labelledby="nav-bac5-tab">
+            {{ drupal_view('diploma_training', 'block_diploma_bac5')|without('#theme_wrappers') }}
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="col-lg-12">
+         <div class="course_all_btn text-center">
+            <a href="{{ path('view.diploma_training.page_1') }}" class="boxed-btn4">{{ 'View All course'|t }}</a>
+         </div>
+      </div>
+   </div>
+   </div>
+</div>
+

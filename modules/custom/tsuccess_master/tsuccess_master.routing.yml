@@ -1,0 +1,7 @@
+form_api_example.simple_form:
+  path: 'registration/training'
+  defaults:
+    _form: '\Drupal\tsuccess_master\Form\TrainingRegistration'
+    _title: 'Training Registration'
+  requirements:
+    _permission: 'access content'

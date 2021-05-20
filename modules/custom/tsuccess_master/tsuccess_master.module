@@ -1,17 +1,40 @@
 <?php
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\user\Entity\User;
 
 /**
  * Implements hook_theme().
  */
-function tsuccess_master_theme($existing, $type, $theme, $path) {
+function tsuccess_master_theme($existing, $type, $theme, $path)
+{
     return [
         'diploma_home' => [
-            'variables' => ['title' => NULL],
+            'variables' => ['title' => null],
         ],
     ];
 
 }
 
-
-
+/**
+ * Implements hook_entity_presave().
+ */
+function tsuccess_master_entity_presave(EntityInterface $entity)
+{
+    if ($entity->bundle() == 'training_registration') {
+        $approvalRequest = $entity->get('field_approval_of_the_request')->value;
+        //var_dump($approvalRequest); die;
+        $email = $entity->get('field_email')->value;
+        $cin = $entity->get('field_cin_passport')->value;
+        if ($approvalRequest == 'approved') {
+            User::create([
+                'name' => $email,
+                'pass' => $cin,
+                'mail' => $email,
+                'status' => 1,
+                'init' => $email,
+                'roles' => ['training_student'],
+            ])->save();
+        }
+    }
+}

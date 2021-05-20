@@ -4,7 +4,7 @@ namespace Drupal\tsuccess_master\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-//use Drupal\tsuccess_master\Master;
+use Drupal\node\Entity\Node;
 
 /**
  * This example demonstrates a simple form with a singe text input element. We
@@ -42,18 +42,6 @@ class TrainingRegistration extends FormBase
             '#markup' => $this->t('Apply Now'),
         ];
 
-        // $form['title'] = [
-        //     '#type' => 'textfield',
-        //     '#title' => $this->t('Title'),
-        //     '#description' => $this->t('Title must be at least 5 characters in length.'),
-        //     '#required' => true,
-        // ];
-
-        // $form['copy'] = array(
-        //     '#type' => 'checkbox',
-        //     '#title' => $this->t('Send me a copy'),
-        // );
-
         $form['first_name'] = [
             '#type' => 'textfield',
             '#title' => $this->t('First name'),
@@ -67,32 +55,20 @@ class TrainingRegistration extends FormBase
         ];
 
         $form['phone'] = array(
-            '#type' => 'tel',
+            '#type' => 'textfield',
             '#title' => $this->t('Phone'),
-            '#pattern' => '[^\\d]*',
+            '#required' => true,
         );
 
         $form['email'] = [
             '#type' => 'email',
             '#title' => $this->t('Email'),
-            '#pattern' => '*@example.com',
+            '#required' => true,
         ];
 
         $form['birthday'] = [
             '#type' => 'date',
-            '#title' => $this->t('Birthday')
-        ];
-
-        $form['nationality'] = [
-            '#type' => 'textfield',
-            '#title' => $this->t('Nationality'),
-            '#required' => true,
-        ];
-
-        $form['cin'] = [
-            '#type' => 'textfield',
-            '#title' => $this->t('CIN or Pasport ID'),
-            '#required' => true,
+            '#title' => $this->t('Date of Birth'),
         ];
 
         $form['sexe'] = array(
@@ -105,21 +81,30 @@ class TrainingRegistration extends FormBase
             '#required' => true,
         );
 
-        $form['example_select'] = [
-            '#type' => 'select',
-            '#title' => $this
-              ->t('Select element'),
-            '#options' => $this->getTraning(),
-          ];
+        $form['nationality'] = [
+            '#type' => 'textfield',
+            '#title' => $this->t('Nationality'),
+            '#required' => true,
+        ];
 
-        // Group submit handlers in an actions element with a key of "actions" so
-        // that it gets styled correctly, and so that other modules may add actions
-        // to the form. This is not required, but is convention.
+        $form['cin'] = [
+            '#type' => 'textfield',
+            '#title' => $this->t('CIN or Passport ID'),
+            '#required' => true,
+        ];
+
+        $form['training_cours'] = [
+            '#type' => 'select',
+            '#title' => $this->t('Select a training'),
+            '#empty_option' => "- Select -",
+            '#options' => $this->getTraining(),
+            '#required' => true,
+        ];
+
         $form['actions'] = [
             '#type' => 'actions',
         ];
 
-        // Add a submit button that handles the submission of the form.
         $form['actions']['submit'] = [
             '#type' => 'submit',
             '#value' => $this->t('Submit'),
@@ -127,8 +112,6 @@ class TrainingRegistration extends FormBase
 
         return $form;
     }
-
-
 
     /**
      * Implements form validation.
@@ -140,20 +123,27 @@ class TrainingRegistration extends FormBase
      */
     public function validateForm(array &$form, FormStateInterface $form_state)
     {
-        $title = $form_state->getValue('title');
-        if (strlen($title) < 5) {
-            // Set an error for the form element with a key of "title".
-            $form_state->setErrorByName('title', $this->t('The title must be at least 5 characters long.'));
+        $phone = $form_state->getValue('phone');
+        if (strlen($phone) < 10) {
+            $form_state->setErrorByName('title', $this->t('The phone must be at least 10 characters long.'));
         }
     }
 
-    public function getTraning(){
-        return [
-            '1' => $this->t('One'),
-            '2' => $this->t('Two'),
-            '3' => $this->t('Three'),
-            '4' => $this->t('Foor'),
-        ];
+    public function getTraining()
+    {
+        $trainingNodes = array();
+        $nids = \Drupal::entityQuery('node')
+            ->condition('status', 1)
+            ->condition('type', 'training_courses')
+            ->execute();
+        $nodes = Node::loadMultiple($nids);
+        foreach ($nodes as $node) {
+            $nodeTitle = $node->getTitle();
+            $nodeId = $node->id();
+            $trainingNodes[$nodeId] = $nodeTitle;
+        }
+
+        return $trainingNodes;
     }
 
     /**
@@ -166,8 +156,41 @@ class TrainingRegistration extends FormBase
      */
     public function submitForm(array &$form, FormStateInterface $form_state)
     {
-        $title = $form_state->getValue('title');
-        $this->messenger()->addStatus($this->t('You specified a title of %title.', ['%title' => $title]));
-    }
+        $firstName = $form_state->getValue('first_name');
+        $lastName = $form_state->getValue('last_name');
+        $phone = $form_state->getValue('phone');
+        $email = $form_state->getValue('email');
+        $birthday = $form_state->getValue('birthday');
+        $sexe = $form_state->getValue('sexe');
+        $nationality = $form_state->getValue('nationality');
+        $cin = $form_state->getValue('cin');
+        $trainingCours = $form_state->getValue('training_cours');
 
+        $nodeTrainingCours = Node::load($trainingCours);
+        $titleNodeTrainingCours = $nodeTrainingCours->getTitle();
+
+        // Create training course node object.
+        $node = Node::create([
+            'type' => 'training_registration',
+            'title' => $titleNodeTrainingCours . ' - ' . $firstName . ' ' . $lastName,
+            'field_first_name' => $firstName,
+            'field_last_name' => $lastName,
+            'field_phone' => $phone,
+            'field_email' => $email,
+            'field_birthday' => $birthday,
+            'field_sexe' => $sexe,
+            'field_nationality' => $nationality,
+            'field_cin_passport' => $cin,
+            'field_training_cours' => $trainingCours,
+            'field_approval_of_the_request' => 'pending',
+            'status' => 0,
+        ]);
+        $node->save();
+
+        if ($node) {
+            $this->messenger()->addStatus($this->t('%firstName your registration was saved.', ['%firstName' => $firstName]));
+        } else {
+            $this->messenger()->addStatus($this->t('Error'));
+        }
+    }
 }

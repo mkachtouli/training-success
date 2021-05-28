@@ -16,12 +16,12 @@ function tsuccess_master_theme($existing, $type, $theme, $path)
 
 }
 
-/**
+/** 
  * Implements hook_entity_presave().
  */
 function tsuccess_master_entity_presave(EntityInterface $entity)
 {
-    if ($entity->bundle() == 'training_registration') {
+    if ($entity->bundle() == ' ') {
         $approvalRequest = $entity->get('field_approval_of_the_request')->value;
         //var_dump($approvalRequest); die;
         $email = $entity->get('field_email')->value;

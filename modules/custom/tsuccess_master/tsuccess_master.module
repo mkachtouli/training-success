@@ -35,8 +35,9 @@ function tsuccess_master_entity_presave(EntityInterface $entity)
         $nationality = $entity->get('field_nationality')->value;
         $phone = $entity->get('field_phone')->value;
         $sexe = $entity->get('field_sexe')->value;
-        $trainingCours = $entity->get('field_training_cours')->first()->get('entity')->getTarget()->getValue();
-        //var_dump($trainingCours); die;
+        $trainingCours = $entity->get('field_training_cours')->referencedEntities();
+        $trainingCours = $entity->field_training_cours;
+        //kint($trainingCours->target_id); die;
 
         # generate a password
         $password = \Drupal::service('password_generator')->generate(10);
@@ -54,7 +55,7 @@ function tsuccess_master_entity_presave(EntityInterface $entity)
                 'field_nationality' => $nationality,
                 'field_phone' => $phone,
                 'field_sexe' => $sexe,
-                'field_training_courses' => 23,
+                'field_training_courses' => $trainingCours->target_id,
                 'status' => 1,
                 'init' => $email,
                 'roles' => ['training_student'],
@@ -72,7 +73,14 @@ function tsuccess_master_form_alter(&$form, FormStateInterface $form_state, $for
     if ($form_id == 'user_form') {
         //kint($form); die;
         if (!in_array("training_student", $form["account"]["roles"]["#default_value"])) {
+            unset($form["field_birthday"]);
             unset($form["field_cin"]);
+            unset($form["field_first_name"]);
+            unset($form["field_last_name"]);
+            unset($form["field_nationality"]);
+            unset($form["field_phone"]);
+            unset($form["field_sexe"]);
+            unset($form["field_training_courses"]);
         }
     }
 }

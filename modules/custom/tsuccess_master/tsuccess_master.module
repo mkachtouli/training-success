@@ -1,7 +1,9 @@
 <?php
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\user\Entity\User;
+use Drupal\Core\Password\DefaultPasswordGenerator;
 
 /**
  * Implements hook_theme().
@@ -16,25 +18,61 @@ function tsuccess_master_theme($existing, $type, $theme, $path)
 
 }
 
-/** 
+/**
  * Implements hook_entity_presave().
  */
 function tsuccess_master_entity_presave(EntityInterface $entity)
 {
-    if ($entity->bundle() == ' ') {
+    if ($entity->bundle() == 'training_registration') {
         $approvalRequest = $entity->get('field_approval_of_the_request')->value;
-        //var_dump($approvalRequest); die;
+
+        # Get training registration fields
         $email = $entity->get('field_email')->value;
         $cin = $entity->get('field_cin_passport')->value;
+        $birthday = $entity->get('field_birthday')->value;
+        $firstName = $entity->get('field_first_name')->value;
+        $lastName = $entity->get('field_last_name')->value;
+        $nationality = $entity->get('field_nationality')->value;
+        $phone = $entity->get('field_phone')->value;
+        $sexe = $entity->get('field_sexe')->value;
+        $trainingCours = $entity->get('field_training_cours')->first()->get('entity')->getTarget()->getValue();
+        //var_dump($trainingCours); die;
+
+        # generate a password
+        $password = \Drupal::service('password_generator')->generate(10);
+
+        # Create user with training_student role
         if ($approvalRequest == 'approved') {
             User::create([
                 'name' => $email,
-                'pass' => $cin,
+                'pass' => $password,
                 'mail' => $email,
+                'field_birthday' => $birthday,
+                'field_cin' => $cin,
+                'field_first_name' => $firstName,
+                'field_last_name' => $lastName,
+                'field_nationality' => $nationality,
+                'field_phone' => $phone,
+                'field_sexe' => $sexe,
+                'field_training_courses' => 23,
                 'status' => 1,
                 'init' => $email,
                 'roles' => ['training_student'],
             ])->save();
+        }
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+
+function tsuccess_master_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+    if ($form_id == 'user_form') {
+        //kint($form); die;
+        if (!in_array("training_student", $form["account"]["roles"]["#default_value"])) {
+            unset($form["field_cin"]);
         }
     }
 }

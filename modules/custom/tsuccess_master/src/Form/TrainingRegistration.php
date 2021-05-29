@@ -69,6 +69,7 @@ class TrainingRegistration extends FormBase
         $form['birthday'] = [
             '#type' => 'date',
             '#title' => $this->t('Date of Birth'),
+            '#required' => true,
         ];
 
         $form['sexe'] = array(
